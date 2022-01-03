@@ -5,6 +5,26 @@ private fun main() {
     print(getPhoneNumberMasking("0100-1243-5678"))
 }
 
+/**
+ * 카드 번호 마스킹
+ * 1234-1234-1234-****
+ */
+fun getCardNumMasking(cardNum: String): String {
+    val regex = "(\\d{4})-?(\\d{4})-?(\\d{4})-?(\\d{3,4})$"
+    val matcher = Pattern.compile(regex).matcher(cardNum)
+    return if (matcher.find()) {
+        val maskingText = StringBuffer()
+        val target = matcher.group(4)
+        val length = target.length
+        for (i in 0 until length) {
+            maskingText.append("*")
+        }
+        cardNum.replace(target, maskingText.toString())
+    } else {
+        cardNum
+    }
+}
+
 /** 이메일 끝 3자리 *** 표시
  * ex) abc@email.com -> ***@email.com
  */
