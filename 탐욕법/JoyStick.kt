@@ -1,11 +1,8 @@
 private fun main() {
-    JoyStick().solution("ABAAAAAAAAABB")
+    JoyStick().solution("GFDY")
 }
 
 class JoyStick {
-    private val alphabetList = arrayListOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "A")
-    private val reverseAlphabetList = alphabetList.reversed()
     fun solution(name: String): Int {
         var answer = 0
         var isRight = true
@@ -33,7 +30,7 @@ class JoyStick {
         }
         if (isRight) {
             name.forEachIndexed { index, c ->
-                answer += getConvertMoveCount(c.toString())
+                answer += getJoyStickUpDownCount(c)
                 var isEnd = true
                 if (index != name.length - 1) {
                     for (i in index + 1 until name.length) {
@@ -47,10 +44,10 @@ class JoyStick {
                 }
             }
         } else {
-            answer += getConvertMoveCount(name.first().toString())
+            answer += getJoyStickUpDownCount(name.first())
             val reverseList = name.toList().subList(1, name.length).reversed()
             reverseList.forEachIndexed { index, c ->
-                answer += getConvertMoveCount(c.toString())
+                answer += getJoyStickUpDownCount(c)
                 var isEnd = true
                 if (index != reverseList.size - 1) {
                     for (i in index until reverseList.size) {
@@ -67,13 +64,13 @@ class JoyStick {
         return answer
     }
 
-    private fun getConvertMoveCount(alphabet: String): Int {
-        val isAlphabet = alphabet.length == 1 && alphabet >= "A" && alphabet <= "Z"
+    private fun getJoyStickUpDownCount(alphabet: Char): Int {
+        val isAlphabet = alphabet in 'A'..'Z'
         if (!isAlphabet) {
             return 0
         }
-        val alphabetIndex = alphabetList.indexOf(alphabet)
-        val reverseAlphabet = reverseAlphabetList.indexOf(alphabet)
-        return kotlin.math.min(alphabetIndex, reverseAlphabet)
+        val alphabetIndex = kotlin.math.abs('A' - alphabet)
+        val reverseAlphabetIndex = kotlin.math.abs('[' - alphabet)
+        return kotlin.math.min(alphabetIndex, reverseAlphabetIndex)
     }
 }
