@@ -1,7 +1,7 @@
 # 알고리즘 공부하면서 배운 kotlin collection 
 
 ### 1. chunked
-![image](https://user-images.githubusercontent.com/54883589/165867064-94977fed-4876-48c7-b026-be74bf2652db.png)
+![image](https://user-images.githubusercontent.com/54883589/165867342-a4bb35e1-d342-48b8-bbd2-e2de1bf27f62.png)
 
 ![image](https://user-images.githubusercontent.com/54883589/165866924-b3fea08c-7641-4e7b-8f82-15e443799821.png)
 
