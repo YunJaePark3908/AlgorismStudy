@@ -10,8 +10,7 @@ val exam4 = food.windowed(3, partialWindows = true) {
     it.reversed()
 }
 ```
-결과 값
-
+ - 결과 값
 exam1 = [당근, 배], [사과, 포도], [체리]  
 exam2 = [배, 포도, 체리, 체리]  
 exam3 = [당근, 배, 사과], [배, 사과, 포도], [사과, 포도, 체리]  
@@ -23,5 +22,14 @@ exam4 = [사과, 배, 당근], [포도, 사과, 배], [체리, 포도, 사과], 
 val intArray = intArrayOf(1,2,3,4,5)
 val mapArray = intArray.map { "${it}번 인덱스" }
 ```
-결과 값  
+ - 결과 값  
 mapArray = [1번 인덱스, 2번 인덱스, 3번 인덱스, 4번 인덱스, 5번 인덱스]
+
+### 3. groupBy
+``` kotlin
+val words = listOf("a", "abc", "ab", "def", "abcd")
+val byLength = words.groupBy { it.length }
+```
+ - 결과 값  
+byLength.keys = [1, 3, 2, 4]  
+byLength.values = [[a], [abc, def], [ab], [abcd]]
