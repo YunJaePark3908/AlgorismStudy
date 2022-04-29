@@ -10,7 +10,8 @@ val exam4 = food.windowed(3, partialWindows = true) {
     it.reversed()
 }
 ```
-결과 값\n
+결과 값
+
 exam1 = [당근, 배], [사과, 포도], [체리]
 
 exam2 = [배, 포도, 체리, 체리]
