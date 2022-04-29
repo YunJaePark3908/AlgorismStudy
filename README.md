@@ -19,7 +19,9 @@ exam4 = [사과, 배, 당근], [포도, 사과, 배], [체리, 포도, 사과], 
 
 ### 2. map
  - 조건에 따라 list를 return 
-
-![image](https://user-images.githubusercontent.com/54883589/165867233-edc80013-6df1-49fb-9a5a-96a5cc76d84c.png)
-
-![image](https://user-images.githubusercontent.com/54883589/165867292-1f6c2e32-bd76-46f4-a960-e2fbb82476e8.png)
+``` kotlin
+val intArray = intArrayOf(1,2,3,4,5)
+val mapArray = intArray.map { "${it}번 인덱스" }
+```
+결과 값  
+mapArray = [1번 인덱스, 2번 인덱스, 3번 인덱스, 4번 인덱스, 5번 인덱스]
