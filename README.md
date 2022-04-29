@@ -2,13 +2,13 @@
 
 ### 1. chunked
 ``` kotlin
-    val food = listOf("당근", "배", "사과", "포도", "체리")
-    val exam1 = food.chunked(2)
-    val exam2 = food.chunked(2) { it.last() }
-    val exam3 = food.windowed(3)
-    val exam4 = food.windowed(3, partialWindows = true) {
-        it.reversed()
-    }
+val food = listOf("당근", "배", "사과", "포도", "체리")
+val exam1 = food.chunked(2)
+val exam2 = food.chunked(2) { it.last() }
+val exam3 = food.windowed(3)
+val exam4 = food.windowed(3, partialWindows = true) {
+    it.reversed()
+}
 ```
 결과 값
 exam1 = [당근, 배], [사과, 포도], [체리]
