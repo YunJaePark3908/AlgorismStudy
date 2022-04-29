@@ -10,8 +10,11 @@
         it.reversed()
     }
 ```
-
-![image](https://user-images.githubusercontent.com/54883589/165867402-d304f7eb-4c67-470d-95d6-f2e49304b0fa.png)
+결과 값
+exam1 = [당근, 배], [사과, 포도], [체리]
+exam2 = [배, 포도, 체리, 체리]
+exam3 = [당근, 배, 사과], [배, 사과, 포도], [사과, 포도, 체리]
+exam4 = [사과, 배, 당근], [포도, 사과, 배], [체리, 포도, 사과], [체리, 포도], [체리]
 
 ### 2. map
  - 조건에 따라 list를 return 
