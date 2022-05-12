@@ -1,5 +1,7 @@
 # 알고리즘 공부하면서 배운 kotlin collection 및 함수
 
+## Collection
+
 ### 1. chunked
 ``` kotlin
 val food = listOf("당근", "배", "사과", "포도", "체리")
@@ -33,3 +35,5 @@ val byLength = words.groupBy { it.length }
  - 결과 값  
 byLength.keys = [1, 3, 2, 4]  
 byLength.values = [[a], [abc, def], [ab], [abcd]]
+
+## Function
