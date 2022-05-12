@@ -1,4 +1,6 @@
-# 알고리즘 공부하면서 배운 kotlin collection 
+# 알고리즘 공부하면서 배운 kotlin collection 및 util function
+
+## Collection
 
 ### 1. chunked
 ``` kotlin
@@ -10,7 +12,7 @@ val exam4 = food.windowed(3, partialWindows = true) {
     it.reversed()
 }
 ```
- - 결과 값
+ - 결과 값  
 exam1 = [당근, 배], [사과, 포도], [체리]  
 exam2 = [배, 포도, 체리, 체리]  
 exam3 = [당근, 배, 사과], [배, 사과, 포도], [사과, 포도, 체리]  
@@ -33,3 +35,14 @@ val byLength = words.groupBy { it.length }
  - 결과 값  
 byLength.keys = [1, 3, 2, 4]  
 byLength.values = [[a], [abc, def], [ab], [abcd]]
+
+## Function
+### 1. 소수 판별
+``` kotlin
+private fun isPrime(n: Int): Boolean {
+    if (n == 0 || n == 1) return false
+    var i = 2
+    while (i * i <= n) { if (n % i++ == 0) return false }
+    return true
+}
+```
