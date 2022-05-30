@@ -41,7 +41,7 @@ byLength.values = [[a], [abc, def], [ab], [abcd]]
 val strings = listOf("abc", "def")
 println(strings.flatMap { it.toList() })
 ```
- - 결과 값   
+ - 결과 값  
  list("a", "b", "c", "d", "e", "f")
 
 ### 5. contentDeepToString 
@@ -53,7 +53,7 @@ val matrix = arrayOf(
 )
 println(matrix.contentDeepToString())
 ```
- - 결과 값
+ - 결과 값  
  [[3, 7, 9], [0, 1, 0], [2, 4, 8]]  
  
  
