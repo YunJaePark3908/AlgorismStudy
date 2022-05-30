@@ -44,7 +44,19 @@ println(strings.flatMap { it.toList() })
  - 결과 값  
  list("a", "b", "c", "d", "e", "f")
 
-
+### 5. contentDeepToString 
+``` kotlin
+val matrix = arrayOf(
+    intArrayOf(3, 7, 9),
+    intArrayOf(0, 1, 0),
+    intArrayOf(2, 4, 8)
+)
+println(matrix.contentDeepToString())
+```
+ - 결과 값
+ [[3, 7, 9], [0, 1, 0], [2, 4, 8]]  
+ 
+ 
 ## Function
 ### 1. 소수 판별
 ``` kotlin
