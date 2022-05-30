@@ -36,6 +36,15 @@ val byLength = words.groupBy { it.length }
 byLength.keys = [1, 3, 2, 4]  
 byLength.values = [[a], [abc, def], [ab], [abcd]]
 
+### 4. flatMap
+``` kotlin
+val strings = listOf("abc", "def")
+println(strings.flatMap { it.toList() })
+```
+ - 결과 값  
+ list("a", "b", "c", "d", "e", "f")
+
+
 ## Function
 ### 1. 소수 판별
 ``` kotlin
