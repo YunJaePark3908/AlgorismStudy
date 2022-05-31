@@ -55,7 +55,14 @@ println(matrix.contentDeepToString())
 ```
  - 결과 값  
  [[3, 7, 9], [0, 1, 0], [2, 4, 8]]  
- 
+
+### 6. joinToString
+``` kotlin
+val numbers = listOf(1, 2, 3, 4, 5, 6)
+println(numbers.joinToString()) // 1, 2, 3, 4, 5, 6
+println(numbers.joinToString(prefix = "[", postfix = "]")) // [1, 2, 3, 4, 5, 6]
+println(numbers.joinToString(prefix = "<", postfix = ">", separator = "•")) // <1•2•3•4•5•6>
+```
  
 ## Function
 ### 1. 소수 판별
