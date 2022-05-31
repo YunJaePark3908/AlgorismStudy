@@ -13,25 +13,27 @@ class MenuRenewal {
         var answer: Array<String> = arrayOf()
         //모든 메뉴의 조합 만들기
         val allMenuList = orders.flatMap { it.toList() }.distinct().sorted()
-        val menuCombination = mutableListOf<List<Char>>()
+        val menuCombination = mutableListOf<String>()
         val maxCourseSize = orders.maxOf { it.length }
         course.forEach {
             if (it <= maxCourseSize) {
                 combination(menuCombination, allMenuList, Array<Boolean>(allMenuList.size) { false }, 0, it)
             }
         }
-        val menuCombinationToString = menuCombination.map { list ->
-            val sb = StringBuilder()
-            list.forEach { sb.append(it) }
-            sb.toString()
-        }
         val hasMap = hashMapOf<String, Int>()
         //손님들이 얼마나 조합 된 메뉴를 주문 했는지 체크
-        menuCombinationToString.forEach { menuCombinationStr ->
+        menuCombination.forEach { menuCombinationStr ->
             var count = 0
             orders.forEach { order ->
                 var isContain = true
-                menuCombinationStr.forEach { char -> if (!order.contains(char)) isContain = false }
+                run {
+                    menuCombinationStr.forEach { char ->
+                        if (!order.contains(char)) {
+                            isContain = false
+                            return@run
+                        }
+                    }
+                }
                 if (isContain) count++
             }
             hasMap[menuCombinationStr] = count
@@ -63,9 +65,15 @@ class MenuRenewal {
         return answer
     }
 
-    fun <T> combination(answer: MutableList<List<T>>, el: List<T>, ck: Array<Boolean>, start: Int, target: Int) {
+    fun <T> combination(answer: MutableList<String>, el: List<T>, ck: Array<Boolean>, start: Int, target: Int) {
         if(target == 0) {
-            answer.addAll( listOf(el.filterIndexed { index, t -> ck[index] }) )
+            val sb = StringBuffer()
+            for (i in el.indices) {
+                if (ck[i]) {
+                    sb.append(el[i])
+                }
+            }
+            answer.add(sb.toString())
         } else {
             for(i in start until el.size) {
                 ck[i] = true
