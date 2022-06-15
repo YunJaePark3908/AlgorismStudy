@@ -82,3 +82,9 @@ private fun <T> permutation(el: List<T>, fin: List<T> = listOf(), sub: List<T> =
     else sub.flatMap { permutation(el, fin + it, sub - it) }
 }
 ```
+
+### 3. 계승(팩토리얼)
+``` kotlin
+private tailrec fun factorial(n: Int, acc: Int = 1): Int =
+    if (n <= 0) acc else factorial(n-1, n*acc)
+```
