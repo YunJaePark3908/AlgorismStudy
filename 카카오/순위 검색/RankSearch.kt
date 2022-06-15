@@ -7,69 +7,60 @@ private fun main() {
 }
 
 class RankSearch {
-    enum class Applicant(val subject: Array<String>) {
-        DevLanguage(arrayOf("cpp", "java", "python")),
-        JobGroup(arrayOf("backend", "frontend")),
-        Career(arrayOf("junior", "senior")),
-        SoulFood(arrayOf("chicken", "pizza")),
-        Score(arrayOf())
-    }
+    val map = hashMapOf<String, ArrayList<Int>>()
     fun solution(info: Array<String>, query: Array<String>): IntArray {
-        val answer = ArrayList<Int>()
-        val applicantHashMaps = info.map { infoStr->
-            val hashMap = hashMapOf<String, String>()
-            infoStr.split(" ").forEachIndexed { index, s ->
-                when (index) {
-                    0 -> hashMap[Applicant.DevLanguage.name] = s
-                    1 -> hashMap[Applicant.JobGroup.name] = s
-                    2 -> hashMap[Applicant.Career.name] = s
-                    3 -> hashMap[Applicant.SoulFood.name] = s
-                    4 -> hashMap[Applicant.Score.name] = s
-                }
-            }
-            hashMap
+        val answer = IntArray(query.size)
+        info.forEach { infoStr ->
+            dfs(0, "", infoStr.split(" "))
         }
-        val queryList = query.map { it.split(" and ", " ") }
-        val queryHashMaps = queryList.map { list->
-            val hashMap = hashMapOf<String, String>()
-            list.forEachIndexed { index, s ->
-                if (s != "-") {
-                    when (index) {
-                        0 -> hashMap[Applicant.DevLanguage.name] = s
-                        1 -> hashMap[Applicant.JobGroup.name] = s
-                        2 -> hashMap[Applicant.Career.name] = s
-                        3 -> hashMap[Applicant.SoulFood.name] = s
-                        4 -> hashMap[Applicant.Score.name] = s
-                    }
-                }
+        val iterator = map.keys.iterator()
+        while (iterator.hasNext()) {
+            val key = iterator.next()
+            val list = map[key] ?: ArrayList()
+            list.sort()
+        }
+        query.forEachIndexed { index, queryStr ->
+            val keyValue = queryStr.replace(" and ".toRegex(), "").split(" ").toTypedArray()
+            val key = keyValue[0]
+            val value = keyValue[1]
+
+            if (!map.containsKey(key)) {
+                answer[index] = 0
+            } else {
+                answer[index] = bs(map[key]!!, value.toInt())
             }
-            hashMap
+        }
+        return answer
+    }
+    private fun dfs(depth: Int, key: String, info: List<String>) {
+        if (depth >= 4) {
+            if (map.containsKey(key)) {
+                map[key]!!.add(info[4].toInt())
+            } else {
+                val list = ArrayList<Int>()
+                list.add(info[4].toInt())
+                map[key] = list
+            }
+            return
         }
 
-        queryHashMaps.forEach { queryHashMap ->
-            var count = 0
-            applicantHashMaps.forEach { applicantHashMap ->
-                val isContains = ArrayList<Boolean>()
-                queryHashMap[Applicant.DevLanguage.name]?.let {
-                    isContains.add(it == applicantHashMap[Applicant.DevLanguage.name])
-                }
-                queryHashMap[Applicant.JobGroup.name]?.let {
-                    isContains.add(it == applicantHashMap[Applicant.JobGroup.name])
-                }
-                queryHashMap[Applicant.Career.name]?.let {
-                    isContains.add(it == applicantHashMap[Applicant.Career.name])
-                }
-                queryHashMap[Applicant.SoulFood.name]?.let {
-                    isContains.add(it == applicantHashMap[Applicant.SoulFood.name])
-                }
-                queryHashMap[Applicant.Score.name]?.let {
-                    isContains.add((it.toIntOrNull() ?: 0) <= (applicantHashMap[Applicant.Score.name]?.toIntOrNull() ?: 0))
-                }
+        dfs(depth + 1, "${key}-", info)
+        dfs(depth + 1, key + info[depth], info)
+    }
 
-                if (!isContains.any { !it }) count++
+    fun bs(list: List<Int>, target: Int): Int {
+        var start = 0
+        var end = list.size - 1
+
+        while (start <= end) {
+            val mid = (start + end) / 2
+            if (list[mid] >= target) {
+                end = mid - 1
+            } else {
+                start = mid + 1
             }
-            answer.add(count)
         }
-        return answer.toIntArray()
+
+        return list.size - start
     }
 }
