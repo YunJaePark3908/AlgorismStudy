@@ -1,74 +1,34 @@
+package solve
+
 private fun main() {
-    JoyStick().solution("GFDY")
+//    println(JoyStick().solution("JAN"))
+    val intArray = intArrayOf(1,2,3,4,5,6,7,8,9,10)
+    val mapArray = intArray.map { "${it}번 인덱스" }
+    mapArray.forEach {
+        println(it)
+    }
 }
 
 class JoyStick {
     fun solution(name: String): Int {
         var answer = 0
-        var isRight = true
-        if (name.length >= 2) {
-            var cursor = 1
-            var reverseCursor = name.length - 1
-            while (true) {
-                if (name[cursor] == 'A' && name[reverseCursor] != 'A') {
-                    //왼쪽 진행
-                    isRight = false
-                    break
-                } else if (name[cursor] != 'A' && name[reverseCursor] == 'A') {
-                    //오른쪽 진행
-                    isRight = true
-                    break
-                } else {
-                    if (reverseCursor - cursor == 0 || reverseCursor - cursor == 1) {
-                        isRight = true
-                        break
-                    }
-                    cursor++
-                    reverseCursor--
-                }
+        var move = name.length - 1 //오른쪽으로만 간 횟수
+        name.forEachIndexed { index, c ->
+            answer += getJoyStickUpDownCount(c)
+            if (index < name.length - 1 && name[index+1] == 'A') {
+                var endA = index + 1
+                while (endA < name.length && name[endA] == 'A') { endA++ }
+                move = Math.min(move, index * 2 + (name.length - endA)) // 오른쪽으로 갔다 다시 왼쪽으로 가는 경우
+                move = Math.min(move, index + (name.length - endA) * 2) // 왼쪽으로 갔다 다시 오른쪽으로 가는 경우
             }
         }
-        if (isRight) {
-            name.forEachIndexed { index, c ->
-                answer += getJoyStickUpDownCount(c)
-                var isEnd = true
-                if (index != name.length - 1) {
-                    for (i in index + 1 until name.length) {
-                        if (name[i] != 'A') {
-                            isEnd = false
-                        }
-                    }
-                }
-                if (!isEnd) {
-                    answer++
-                }
-            }
-        } else {
-            answer += getJoyStickUpDownCount(name.first())
-            val reverseList = name.toList().subList(1, name.length).reversed()
-            reverseList.forEachIndexed { index, c ->
-                answer += getJoyStickUpDownCount(c)
-                var isEnd = true
-                if (index != reverseList.size - 1) {
-                    for (i in index until reverseList.size) {
-                        if (reverseList[i] != 'A') {
-                            isEnd = false
-                        }
-                    }
-                }
-                if (!isEnd) {
-                    answer++
-                }
-            }
-        }
-        return answer
+
+        return answer + move
     }
 
     private fun getJoyStickUpDownCount(alphabet: Char): Int {
         val isAlphabet = alphabet in 'A'..'Z'
-        if (!isAlphabet) {
-            return 0
-        }
+        if (!isAlphabet) return 0
         val alphabetIndex = kotlin.math.abs('A' - alphabet)
         val reverseAlphabetIndex = kotlin.math.abs('[' - alphabet)
         return kotlin.math.min(alphabetIndex, reverseAlphabetIndex)
